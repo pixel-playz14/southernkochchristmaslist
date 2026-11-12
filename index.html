@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Southern Koch Christmas Wishlists</title>
+    <style>
+        body {
+            background-color: #18181b;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .top {
+            text-align: center;
+            color: white;
+            background-color: #211d1d;
+            padding: 20px;
+        }
+        .wrapper {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            text-align: center;
+            align-items: start;
+        }
+        .card {
+            background-color: #fbfbfa;
+            border: 1px solid #2e1515;
+            box-shadow: #827c7c 0px 0px 10px;
+            border-radius: 10px;
+            padding: 30px 20px;
+            box-sizing: border-box;
+        }
+        .card h1 {
+            color: #211d1d;
+            margin-top: 0;
+            font-size: 1.5rem;
+        }
+        .item-img {
+            display: block;
+            margin: 0 auto 10px auto;
+            width: 100px;
+            height: 100px;
+            border-radius: 10px;
+            object-fit: cover;
+        }
+        .btn {
+            background-color: #0d0d0d;
+            color: white;
+            border: 1px solid #fbfbfa;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 8px;
+            font-size: 14px;
+            margin-top: 8px;
+        }
+        .btn:hover {
+            background-color: #4a4343;
+        }
+        .list-container {
+            display: none;
+            margin-top: 20px;
+        }
+        .items-box {
+            color: #eae1e1;
+            background-color: #342f2f;
+            padding: 15px;
+            font-size: 15px;
+            margin-bottom: 10px;
+            border-radius: 8px;
+            line-height: 1.5;
+            text-align: left;
+        }
+        .wishlist-item {
+            text-align: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #4a4343;
+        }
+        .wishlist-item:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+        .item-link-btn {
+            display: inline-block;
+            margin: 8px auto 0 auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="top">
+        <header>
+            <h1>Southern Koch Christmas Wishlists</h1>
+        </header>
+    </div>
+    
+    <div class="wrapper">
+        <!-- Mom's List -->
+        <div class="card">
+            <h1>Mom's List</h1>
+            <div class="btn-container">
+                <button class="btn" onclick="toggleList('mom')">Open Mom's List</button>
+            </div>
+            <div id="list-mom" class="list-container">
+                <div class="items-box">
+                    <div class="wishlist-item">
+                        <img src="https://coach.scene7.com/is/image/Coach/cen57_b4z5d_a0?$pngPDPv8$" alt="Coach Bag" class="item-img">
+                        1. Coach Chelsea Shoulder Bag 30 – Maple<br>
+                        <button class="btn item-link-btn" onclick="window.open('https://www.coach.com/coach-chelsea-shoulder-bag-30-in-maple/89104.html', '_blank')">Item Link</button>
+                    </div>
+
+                    <div class="wishlist-item">
+                        <img src="https://m.media-amazon.com/images/G/01/Shopbop/p/prod/products/coadb/coadb30769250b4/coadb30769250b4_1773939960848_2-0._QL90_UX564_.jpg" alt="Kisslock Bag" class="item-img">
+                        2. Coach Kisslock Frame Bag 27 – Warm Brown<br>
+                        <button class="btn item-link-btn" onclick="window.open('https://www.shopbop.com/kisslock-frame-bag-coach/vp/v=1/1534573733.html', '_blank')">Item Link</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Dad's List -->
+        <div class="card">
+            <h1>Dad's List</h1>
+            <div class="btn-container">
+                <button class="btn" onclick="toggleList('dad')">Open Dad's List</button>
+            </div>
+            <div id="list-dad" class="list-container">
+                <div class="items-box">
+                    <div class="wishlist-item">
+                        <img src="https://coach.scene7.com/is/image/Coach/cds58_b4vn_a0?$pngPDPv8$" alt="Dad Item" class="item-img">
+                        1. Dad's Wishlist Item 1<br>
+                        <button class="btn item-link-btn" onclick="window.open('https://www.coach.com', '_blank')">Item Link</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tyler's List -->
+        <div class="card">
+            <h1>Tyler's List</h1>
+            <div class="btn-container">
+                <button class="btn" onclick="toggleList('tyler')">Open Tyler's List</button>
+            </div>
+            <div id="list-tyler" class="list-container">
+                <div class="items-box">
+                    <div class="wishlist-item">
+                        <img src="https://www.revive-eo.com/wp-content/plugins/woocommerce/assets/images/placeholder.png" alt="Tyler Item" class="item-img">
+                        1. Tyler's Wishlist Item 1<br>
+                        <button class="btn item-link-btn" onclick="window.open('https://www.amazon.com', '_blank')">Item Link</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bentley's List -->
+        <div class="card">
+            <h1>Bentley's List</h1>
+            <div class="btn-container">
+                <button class="btn" onclick="toggleList('bentley')">Open Bentley's List</button>
+            </div>
+            <div id="list-bentley" class="list-container">
+                <div class="items-box">
+                    <div class="wishlist-item">
+                        <img src="https://www.revive-eo.com/wp-content/plugins/woocommerce/assets/images/placeholder.png" alt="Bentley Item" class="item-img">
+                        1. Bentley's Wishlist Item 1<br>
+                        <button class="btn item-link-btn" onclick="window.open('https://www.amazon.com', '_blank')">Item Link</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function toggleList(person) {
+            var list = document.getElementById('list-' + person);
+            var btn = event.target;
+            
+            if (list.style.display === 'none' || list.style.display === '') {
+                list.style.display = 'block';
+                btn.textContent = "Close " + person.charAt(0).toUpperCase() + person.slice(1) + "'s List";
+            } else {
+                list.style.display = 'none';
+                btn.textContent = "Open " + person.charAt(0).toUpperCase() + person.slice(1) + "'s List";
+            }
+        }
+    </script>
+</body>
+</html>
