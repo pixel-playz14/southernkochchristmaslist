@@ -45,8 +45,7 @@
         .item-img {
             display: block;
             margin: 0 auto 10px auto;
-            width: 100px;
-            height: 100px;
+            max-width: 100%;
             border-radius: 10px;
             object-fit: cover;
         }
@@ -104,6 +103,13 @@
     <div id="wishlist-wrapper" class="wrapper"></div>
 
     <script>
+        function formatSize(value, fallback = '100px') {
+            if (value === undefined || value === null || value === '') {
+                return fallback;
+            }
+            return typeof value === 'number' ? `${value}px` : String(value).trim();
+        }
+
         function toggleList(personId, personName, btnEl) {
             const list = document.getElementById('list-' + personId);
             const isHidden = list.style.display === 'none' || list.style.display === '';
@@ -158,6 +164,8 @@
                     img.src = item.image;
                     img.alt = item.alt || item.title;
                     img.className = 'item-img';
+                    img.style.width = formatSize(item.width, '100px');
+                    img.style.height = formatSize(item.height, '100px');
 
                     const label = document.createTextNode(`${index + 1}. ${item.title}`);
                     const br = document.createElement('br');
