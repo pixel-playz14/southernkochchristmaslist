@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Southern Koch Christmas Wishlists</title>
+    <script src="https://cdn.jsdelivr.net/npm/js-yaml@4.1.0/dist/js-yaml.min.js"></script>
     <style>
         body {
             background-color: #18181b;
@@ -96,99 +97,106 @@
 <body>
     <div class="top">
         <header>
-            <h1>Southern Koch Christmas Wishlists</h1>
+            <h1 id="page-title">Southern Koch Christmas Wishlists</h1>
         </header>
     </div>
-    
-    <div class="wrapper">
-        <!-- Mom's List -->
-        <div class="card">
-            <h1>Mom's List</h1>
-            <div class="btn-container">
-                <button class="btn" onclick="toggleList('mom')">Open Mom's List</button>
-            </div>
-            <div id="list-mom" class="list-container">
-                <div class="items-box">
-                    <div class="wishlist-item">
-                        <img src="https://coach.scene7.com/is/image/Coach/cen57_b4z5d_a0?$pngPDPv8$" alt="Coach Bag" class="item-img">
-                        1. Coach Chelsea Shoulder Bag 30 – Maple<br>
-                        <button class="btn item-link-btn" onclick="window.open('https://www.coach.com/coach-chelsea-shoulder-bag-30-in-maple/89104.html', '_blank')">Item Link</button>
-                    </div>
 
-                    <div class="wishlist-item">
-                        <img src="https://m.media-amazon.com/images/G/01/Shopbop/p/prod/products/coadb/coadb30769250b4/coadb30769250b4_1773939960848_2-0._QL90_UX564_.jpg" alt="Kisslock Bag" class="item-img">
-                        2. Coach Kisslock Frame Bag 27 – Warm Brown<br>
-                        <button class="btn item-link-btn" onclick="window.open('https://www.shopbop.com/kisslock-frame-bag-coach/vp/v=1/1534573733.html', '_blank')">Item Link</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Dad's List -->
-        <div class="card">
-            <h1>Dad's List</h1>
-            <div class="btn-container">
-                <button class="btn" onclick="toggleList('dad')">Open Dad's List</button>
-            </div>
-            <div id="list-dad" class="list-container">
-                <div class="items-box">
-                    <div class="wishlist-item">
-                        <img src="https://coach.scene7.com/is/image/Coach/cds58_b4vn_a0?$pngPDPv8$" alt="Dad Item" class="item-img">
-                        1. Dad's Wishlist Item 1<br>
-                        <button class="btn item-link-btn" onclick="window.open('https://www.coach.com', '_blank')">Item Link</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Tyler's List -->
-        <div class="card">
-            <h1>Tyler's List</h1>
-            <div class="btn-container">
-                <button class="btn" onclick="toggleList('tyler')">Open Tyler's List</button>
-            </div>
-            <div id="list-tyler" class="list-container">
-                <div class="items-box">
-                    <div class="wishlist-item">
-                        <img src="https://www.revive-eo.com/wp-content/plugins/woocommerce/assets/images/placeholder.png" alt="Tyler Item" class="item-img">
-                        1. Tyler's Wishlist Item 1<br>
-                        <button class="btn item-link-btn" onclick="window.open('https://www.amazon.com', '_blank')">Item Link</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Bentley's List -->
-        <div class="card">
-            <h1>Bentley's List</h1>
-            <div class="btn-container">
-                <button class="btn" onclick="toggleList('bentley')">Open Bentley's List</button>
-            </div>
-            <div id="list-bentley" class="list-container">
-                <div class="items-box">
-                    <div class="wishlist-item">
-                        <img src="https://www.revive-eo.com/wp-content/plugins/woocommerce/assets/images/placeholder.png" alt="Bentley Item" class="item-img">
-                        1. Bentley's Wishlist Item 1<br>
-                        <button class="btn item-link-btn" onclick="window.open('https://www.amazon.com', '_blank')">Item Link</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+    <div id="wishlist-wrapper" class="wrapper"></div>
 
     <script>
-        function toggleList(person) {
-            var list = document.getElementById('list-' + person);
-            var btn = event.target;
-            
-            if (list.style.display === 'none' || list.style.display === '') {
+        function toggleList(personId, personName, btnEl) {
+            const list = document.getElementById('list-' + personId);
+            const isHidden = list.style.display === 'none' || list.style.display === '';
+
+            if (isHidden) {
                 list.style.display = 'block';
-                btn.textContent = "Close " + person.charAt(0).toUpperCase() + person.slice(1) + "'s List";
+                btnEl.textContent = "Close " + personName + "'s List";
             } else {
                 list.style.display = 'none';
-                btn.textContent = "Open " + person.charAt(0).toUpperCase() + person.slice(1) + "'s List";
+                btnEl.textContent = "Open " + personName + "'s List";
             }
         }
+
+        function renderWishlists(data) {
+            if (data.title) {
+                document.title = data.title;
+                document.getElementById('page-title').textContent = data.title;
+            }
+
+            const wrapper = document.getElementById('wishlist-wrapper');
+            wrapper.innerHTML = '';
+
+            (data.people || []).forEach(person => {
+                const card = document.createElement('div');
+                card.className = 'card';
+
+                const heading = document.createElement('h1');
+                heading.textContent = `${person.name}'s List`;
+
+                const btnContainer = document.createElement('div');
+                btnContainer.className = 'btn-container';
+
+                const toggleBtn = document.createElement('button');
+                toggleBtn.className = 'btn';
+                toggleBtn.textContent = `Open ${person.name}'s List`;
+                toggleBtn.addEventListener('click', () => toggleList(person.id, person.name, toggleBtn));
+
+                btnContainer.appendChild(toggleBtn);
+
+                const listContainer = document.createElement('div');
+                listContainer.id = `list-${person.id}`;
+                listContainer.className = 'list-container';
+
+                const itemsBox = document.createElement('div');
+                itemsBox.className = 'items-box';
+
+                (person.items || []).forEach((item, index) => {
+                    const itemDiv = document.createElement('div');
+                    itemDiv.className = 'wishlist-item';
+
+                    const img = document.createElement('img');
+                    img.src = item.image;
+                    img.alt = item.alt || item.title;
+                    img.className = 'item-img';
+
+                    const label = document.createTextNode(`${index + 1}. ${item.title}`);
+                    const br = document.createElement('br');
+
+                    const linkBtn = document.createElement('button');
+                    linkBtn.className = 'btn item-link-btn';
+                    linkBtn.textContent = 'Item Link';
+                    linkBtn.addEventListener('click', () => window.open(item.url, '_blank', 'noopener,noreferrer'));
+
+                    itemDiv.appendChild(img);
+                    itemDiv.appendChild(label);
+                    itemDiv.appendChild(br);
+                    itemDiv.appendChild(linkBtn);
+                    itemsBox.appendChild(itemDiv);
+                });
+
+                listContainer.appendChild(itemsBox);
+                card.appendChild(heading);
+                card.appendChild(btnContainer);
+                card.appendChild(listContainer);
+                wrapper.appendChild(card);
+            });
+        }
+
+        fetch('wishlists.yml')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`Failed to load wishlists.yml (${response.status})`);
+                }
+                return response.text();
+            })
+            .then(yamlText => {
+                const data = jsyaml.load(yamlText);
+                renderWishlists(data);
+            })
+            .catch(err => {
+                document.getElementById('wishlist-wrapper').innerHTML =
+                    `<p style="color: #fca5a5;">Could not load wishlists.yml: ${err.message}</p>`;
+            });
     </script>
 </body>
 </html>
